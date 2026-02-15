@@ -16,7 +16,8 @@ An end-to-end movie analytics project inspired by **:contentReference[oaicite:0]
 Data Source → Extract → Transform → Load → Database → EDA & Dashboard
 
 **Data Source**  
-- **:contentReference[oaicite:1]{index=1} (TMDB-like public data)**  
+- Using Wikipedia
+- Using TMDB API 
 - Netflix website is **not scraped**
 
 **Pipeline Summary**  
