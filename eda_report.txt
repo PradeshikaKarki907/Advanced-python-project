@@ -1,0 +1,87 @@
+================================================================================
+MOVIE DATASET - EXPLORATORY DATA ANALYSIS REPORT
+================================================================================
+
+Report Generated: 2026-02-15 07:57:25
+
+1. BASIC STATISTICS
+--------------------------------------------------------------------------------
+Total Movies: 484
+Average Rating: 6.666322314049586
+Median Rating: 6.6
+Average Runtime: 131.08677685950414
+Average Popularity: 49.618161157024794
+Year Range: 1990 - 2024
+Total Genres: 16
+
+2. DATA QUALITY
+--------------------------------------------------------------------------------
+Total Records: 484
+Missing Values: 0
+Duplicate Titles: 212
+
+3. RATING INSIGHTS
+--------------------------------------------------------------------------------
+Mean Rating: 6.67
+Median Rating: 6.60
+Std Dev: 1.60
+Rating Range: 4.0 - 9.5
+
+Rating Categories:
+  Poor: 176 (36.4%)
+  Excellent: 129 (26.7%)
+  Average: 101 (20.9%)
+  Good: 78 (16.1%)
+
+4. GENRE INSIGHTS
+--------------------------------------------------------------------------------
+Total Unique Genres: 16
+Average Genres per Movie: 1.95
+
+Top 10 Genres:
+  Thriller: 78 (8.3%)
+  Romance: 66 (7.0%)
+  Horror: 65 (6.9%)
+  Documentary: 64 (6.8%)
+  Adventure: 64 (6.8%)
+  Drama: 63 (6.7%)
+  Science Fiction: 62 (6.6%)
+  Crime: 60 (6.4%)
+  Animation: 59 (6.3%)
+  Action: 57 (6.0%)
+
+5. RUNTIME INSIGHTS
+--------------------------------------------------------------------------------
+Average Runtime: 131 minutes
+Median Runtime: 132 minutes
+Runtime Range: 80 - 180 minutes
+
+  Long: 298 (61.6%)
+  Medium: 136 (28.1%)
+  Short: 50 (10.3%)
+
+6. TOP MOVIES
+--------------------------------------------------------------------------------
+Top 10 by Weighted Score:
+  Broken Compass Rising: 8.87 (Rating: 9.5)
+  Hidden Truth Begins: 8.86 (Rating: 9.5)
+  Steel Heart Redemption: 8.76 (Rating: 9.4)
+  Perfect Storm 2: 8.71 (Rating: 9.5)
+  Iron Will Reloaded: 8.71 (Rating: 9.4)
+  Velvet Revolution Reloaded: 8.68 (Rating: 9.5)
+  Old Soul Begins: 8.66 (Rating: 9.4)
+  Eternal Flame Redemption: 8.54 (Rating: 9.3)
+  Perfect Storm Redemption: 8.47 (Rating: 9.4)
+  Crimson Tide Begins: 8.46 (Rating: 9.0)
+
+7. FEATURE CORRELATIONS
+--------------------------------------------------------------------------------
+              rating  popularity  vote_count   runtime
+rating      1.000000    0.086964   -0.043159 -0.003388
+popularity  0.086964    1.000000   -0.001744 -0.022042
+vote_count -0.043159   -0.001744    1.000000 -0.010183
+runtime    -0.003388   -0.022042   -0.010183  1.000000
+
+================================================================================
+END OF REPORT
+================================================================================
