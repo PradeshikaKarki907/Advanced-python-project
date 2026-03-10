@@ -1,0 +1,49 @@
+movie_id,title,genres,release_year,runtime,rating,vote_count,popularity,overview
+WIKI00001,The Shawshank Redemption,Drama,1994,142,9.3,930000,93.0,The Shawshank Redemption is a highly-rated film from 1994
+WIKI00002,The Godfather,Crime|Drama,1972,175,9.2,919999,92.0,The Godfather is a highly-rated film from 1972
+WIKI00003,The Dark Knight,Action|Crime|Drama,2008,152,9.0,900000,90.0,The Dark Knight is a highly-rated film from 2008
+WIKI00004,Pulp Fiction,Crime|Drama,1994,154,8.9,890000,89.0,Pulp Fiction is a highly-rated film from 1994
+WIKI00005,Forrest Gump,Drama|Romance,1994,142,8.8,880000,88.0,Forrest Gump is a highly-rated film from 1994
+WIKI00006,Inception,Action|Sci-Fi,2010,148,8.8,880000,88.0,Inception is a highly-rated film from 2010
+WIKI00007,The Matrix,Action|Sci-Fi,1999,136,8.7,869999,87.0,The Matrix is a highly-rated film from 1999
+WIKI00008,Goodfellas,Crime|Drama,1990,146,8.7,869999,87.0,Goodfellas is a highly-rated film from 1990
+WIKI00009,Interstellar,Adventure|Drama|Sci-Fi,2014,169,8.6,860000,86.0,Interstellar is a highly-rated film from 2014
+WIKI00010,Fight Club,Drama,1999,139,8.8,880000,88.0,Fight Club is a highly-rated film from 1999
+WIKI00011,Gladiator,Action|Adventure|Drama,2000,155,8.5,850000,85.0,Gladiator is a highly-rated film from 2000
+WIKI00012,The Silence of the Lambs,Crime|Drama|Thriller,1991,118,8.6,860000,86.0,The Silence of the Lambs is a highly-rated film from 1991
+WIKI00013,Saving Private Ryan,Drama|War,1998,169,8.6,860000,86.0,Saving Private Ryan is a highly-rated film from 1998
+WIKI00014,Jurassic Park,Action|Adventure|Sci-Fi,1993,127,8.2,820000,82.0,Jurassic Park is a highly-rated film from 1993
+WIKI00015,The Avengers,Action|Adventure|Sci-Fi,2012,143,8.0,800000,80.0,The Avengers is a highly-rated film from 2012
+WIKI00016,Avatar,Action|Adventure|Sci-Fi,2009,162,7.8,780000,78.0,Avatar is a highly-rated film from 2009
+WIKI00017,Titanic,Drama|Romance,1997,194,7.8,780000,78.0,Titanic is a highly-rated film from 1997
+WIKI00018,The Sixth Sense,Drama|Mystery|Thriller,1999,107,8.1,810000,81.0,The Sixth Sense is a highly-rated film from 1999
+WIKI00019,Parasite,Drama|Thriller,2019,132,8.5,850000,85.0,Parasite is a highly-rated film from 2019
+WIKI00020,Oppenheimer,Drama|History,2023,180,8.1,810000,81.0,Oppenheimer is a highly-rated film from 2023
+WIKI00021,The Lion King,Animation|Adventure|Drama,1994,88,8.5,850000,85.0,The Lion King is a highly-rated film from 1994
+WIKI00022,Back to the Future,Adventure|Comedy|Sci-Fi,1985,116,8.5,850000,85.0,Back to the Future is a highly-rated film from 1985
+WIKI00023,The Usual Suspects,Crime|Drama|Mystery,1995,106,8.5,850000,85.0,The Usual Suspects is a highly-rated film from 1995
+WIKI00024,Se7en,Crime|Drama|Mystery,1995,127,8.6,860000,86.0,Se7en is a highly-rated film from 1995
+WIKI00025,The Green Mile,Crime|Drama|Fantasy,1999,189,8.6,860000,86.0,The Green Mile is a highly-rated film from 1999
+WIKI00026,American Beauty,Drama,1999,122,8.3,830000,83.0,American Beauty is a highly-rated film from 1999
+WIKI00027,Requiem for a Dream,Drama,2000,102,8.4,840000,84.0,Requiem for a Dream is a highly-rated film from 2000
+WIKI00028,City of God,Crime|Drama,2002,130,8.8,880000,88.0,City of God is a highly-rated film from 2002
+WIKI00029,The Prestige,Drama|Mystery|Sci-Fi,2006,130,8.5,850000,85.0,The Prestige is a highly-rated film from 2006
+WIKI00030,The Departed,Crime|Drama|Thriller,2006,151,8.5,850000,85.0,The Departed is a highly-rated film from 2006
+WIKI00031,Whiplash,Drama|Music,2014,106,8.5,850000,85.0,Whiplash is a highly-rated film from 2014
+WIKI00032,The Wolf of Wall Street,Biography|Comedy|Crime,2013,180,8.2,820000,82.0,The Wolf of Wall Street is a highly-rated film from 2013
+WIKI00033,Toy Story,Animation|Adventure|Comedy,1995,81,8.3,830000,83.0,Toy Story is a highly-rated film from 1995
+WIKI00034,Finding Nemo,Animation|Adventure|Comedy,2003,100,8.1,810000,81.0,Finding Nemo is a highly-rated film from 2003
+WIKI00035,The Social Network,Biography|Drama,2010,120,7.7,770000,77.0,The Social Network is a highly-rated film from 2010
+WIKI00036,Argo,Drama|History|Thriller,2012,120,7.7,770000,77.0,Argo is a highly-rated film from 2012
+WIKI00037,Blue Valentine,Drama|Romance,2010,112,7.0,700000,70.0,Blue Valentine is a highly-rated film from 2010
+WIKI00038,Casino,Crime|Drama,1995,178,8.2,820000,82.0,Casino is a highly-rated film from 1995
+WIKI00039,Blood Diamond,Adventure|Drama|Thriller,2006,143,8.0,800000,80.0,Blood Diamond is a highly-rated film from 2006
+WIKI00040,The Pursuit of Happyness,Biography|Drama,2006,117,8.0,800000,80.0,The Pursuit of Happyness is a highly-rated film from 2006
+WIKI00041,Catch Me If You Can,Biography|Crime|Drama,2002,141,8.1,810000,81.0,Catch Me If You Can is a highly-rated film from 2002
+WIKI00042,Schindler's List,Biography|Drama|History,1993,195,9.0,900000,90.0,Schindler's List is a highly-rated film from 1993
+WIKI00043,Saving Private Ryan,Drama|War,1998,169,8.6,860000,86.0,Saving Private Ryan is a highly-rated film from 1998
+WIKI00044,Apollo 13,Adventure|drama|History,1995,140,7.7,770000,77.0,Apollo 13 is a highly-rated film from 1995
+WIKI00045,The Fugitive,Action|Crime|Drama,1993,130,7.8,780000,78.0,The Fugitive is a highly-rated film from 1993
+WIKI00046,Unforgiven,Drama|Western,1992,131,7.8,780000,78.0,Unforgiven is a highly-rated film from 1992
+WIKI00047,True Grit,Drama|Western,2010,110,7.6,760000,76.0,True Grit is a highly-rated film from 2010
+WIKI00048,No Country for Old Men,Crime|Drama|Thriller,2007,122,8.4,840000,84.0,No Country for Old Men is a highly-rated film from 2007

@@ -11,6 +11,7 @@ import seaborn as sns
 import sqlite3
 import os
 from datetime import datetime
+from io import StringIO
 
 # Page configuration
 st.set_page_config(
@@ -19,6 +20,10 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+# Initialize session state
+if 'report_generated' not in st.session_state:
+    st.session_state.report_generated = False
 
 # Custom CSS
 st.markdown("""
@@ -81,8 +86,26 @@ def load_data():
 def load_from_database():
     """Load data from SQLite database"""
     conn = sqlite3.connect('../database/movies.db')
-    df = pd.read_sql_query("SELECT * FROM movies", conn)
+    
+    # Query to join movies with their genres
+    query = """
+    SELECT 
+        m.*,
+        GROUP_CONCAT(g.genre_name, '|') as genres
+    FROM movies m
+    LEFT JOIN movie_genres mg ON m.movie_id = mg.movie_id
+    LEFT JOIN genres g ON mg.genre_id = g.genre_id
+    GROUP BY m.movie_id
+    """
+    
+    df = pd.read_sql_query(query, conn)
     conn.close()
+    
+    # Handle case where genres column might be missing or all NULL
+    if 'genres' not in df.columns:
+        df['genres'] = ''
+    df['genres'] = df['genres'].fillna('')
+    
     return df
 
 
@@ -480,6 +503,171 @@ def display_top_movies(df):
     )
 
 
+def generate_insights_report(df):
+    """Generate a detailed insights report as text"""
+    report = StringIO()
+    
+    report.write("="*80 + "\n")
+    report.write("MOVIE ANALYTICS INSIGHTS REPORT\n")
+    report.write("="*80 + "\n")
+    report.write(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+    report.write(f"Total Records: {len(df)}\n\n")
+    
+    # Dataset Overview
+    report.write("\n📊 DATASET OVERVIEW\n")
+    report.write("-" * 80 + "\n")
+    report.write(f"  Total Movies: {len(df)}\n")
+    report.write(f"  Date Range: {df['release_year'].min():.0f} - {df['release_year'].max():.0f}\n")
+    report.write(f"  Features Analyzed: {len(df.columns)}\n")
+    
+    # Rating Insights
+    report.write("\n⭐ RATING INSIGHTS\n")
+    report.write("-" * 80 + "\n")
+    report.write(f"  Average Rating: {df['rating'].mean():.2f}/10\n")
+    report.write(f"  Median Rating: {df['rating'].median():.2f}/10\n")
+    report.write(f"  Std Dev: {df['rating'].std():.2f}\n")
+    report.write(f"  Rating Range: {df['rating'].min():.1f} - {df['rating'].max():.1f}\n\n")
+    
+    report.write("  Rating Distribution:\n")
+    excellent = (df['rating'] >= 8.0).sum()
+    good = ((df['rating'] >= 7.0) & (df['rating'] < 8.0)).sum()
+    avg = ((df['rating'] >= 6.0) & (df['rating'] < 7.0)).sum()
+    poor = (df['rating'] < 6.0).sum()
+    
+    report.write(f"    Excellent (8.0+): {excellent} ({excellent/len(df)*100:.1f}%)\n")
+    report.write(f"    Good (7.0-7.9): {good} ({good/len(df)*100:.1f}%)\n")
+    report.write(f"    Average (6.0-6.9): {avg} ({avg/len(df)*100:.1f}%)\n")
+    report.write(f"    Below Average (<6.0): {poor} ({poor/len(df)*100:.1f}%)\n")
+    
+    # Runtime Insights
+    report.write("\n🎬 RUNTIME INSIGHTS\n")
+    report.write("-" * 80 + "\n")
+    report.write(f"  Average Duration: {df['runtime'].mean():.0f} minutes\n")
+    report.write(f"  Median Duration: {df['runtime'].median():.0f} minutes\n")
+    report.write(f"  Range: {df['runtime'].min():.0f} - {df['runtime'].max():.0f} minutes\n\n")
+    
+    report.write("  Runtime Categories:\n")
+    short = (df['runtime'] < 100).sum()
+    standard = ((df['runtime'] >= 100) & (df['runtime'] < 130)).sum()
+    long = ((df['runtime'] >= 130) & (df['runtime'] < 160)).sum()
+    extended = (df['runtime'] >= 160).sum()
+    
+    report.write(f"    Short (<100 min): {short} ({short/len(df)*100:.1f}%)\n")
+    report.write(f"    Standard (100-129 min): {standard} ({standard/len(df)*100:.1f}%)\n")
+    report.write(f"    Long (130-159 min): {long} ({long/len(df)*100:.1f}%)\n")
+    report.write(f"    Extended (160+ min): {extended} ({extended/len(df)*100:.1f}%)\n")
+    
+    # Genre Insights
+    report.write("\n🎭 GENRE INSIGHTS\n")
+    report.write("-" * 80 + "\n")
+    all_genres = set()
+    for genres_str in df['genres'].dropna():
+        if genres_str:
+            all_genres.update(genres_str.split('|'))
+    
+    report.write(f"  Total Unique Genres: {len(all_genres)}\n")
+    report.write(f"  Genres: {', '.join(sorted(all_genres))}\n\n")
+    
+    # Genre frequency
+    genre_counts = {}
+    for genres_str in df['genres'].dropna():
+        if genres_str:
+            for genre in genres_str.split('|'):
+                genre_counts[genre] = genre_counts.get(genre, 0) + 1
+    
+    report.write("  Most Common Genres:\n")
+    for genre, count in sorted(genre_counts.items(), key=lambda x: x[1], reverse=True)[:5]:
+        report.write(f"    {genre}: {count} movies ({count/len(df)*100:.1f}%)\n")
+    
+    # Genre rating correlation
+    report.write("\n  Top 5 Highest-Rated Genres (by average):\n")
+    genre_ratings = {}
+    for idx, row in df.iterrows():
+        if pd.notna(row['genres']):
+            for genre in str(row['genres']).split('|'):
+                if genre not in genre_ratings:
+                    genre_ratings[genre] = []
+                genre_ratings[genre].append(row['rating'])
+    
+    for genre in sorted(genre_ratings.keys(), key=lambda x: np.mean(genre_ratings[x]), reverse=True)[:5]:
+        avg = np.mean(genre_ratings[genre])
+        report.write(f"    {genre}: {avg:.2f}/10 ({len(genre_ratings[genre])} movies)\n")
+    
+    # Popularity Insights
+    report.write("\n📈 POPULARITY INSIGHTS\n")
+    report.write("-" * 80 + "\n")
+    report.write(f"  Average Popularity: {df['popularity'].mean():.2f}\n")
+    report.write(f"  Median Popularity: {df['popularity'].median():.2f}\n\n")
+    
+    report.write("  🏆 Top 5 Highest-Rated Movies:\n")
+    top_movies = df.nlargest(5, 'rating')[['title', 'rating', 'release_year', 'runtime']]
+    for idx, (i, movie) in enumerate(top_movies.iterrows(), 1):
+        report.write(f"    {idx}. {movie['title']} ({int(movie['release_year'])})\n")
+        report.write(f"       Rating: {movie['rating']:.1f}/10 | Runtime: {int(movie['runtime'])} min\n")
+    
+    # Release Year Patterns
+    report.write("\n📅 RELEASE YEAR PATTERNS\n")
+    report.write("-" * 80 + "\n")
+    report.write("  Movies per Decade:\n")
+    df_temp = df.copy()
+    df_temp['decade'] = (df_temp['release_year'] // 10 * 10).astype(int)
+    decade_counts = df_temp['decade'].value_counts().sort_index()
+    for decade, count in decade_counts.items():
+        report.write(f"    {int(decade)}s: {count} movies ({count/len(df)*100:.1f}%)\n")
+    
+    avg_rating_by_decade = df_temp.groupby('decade')['rating'].mean().sort_index()
+    report.write("\n  Average Rating by Decade:\n")
+    for decade, avg in avg_rating_by_decade.items():
+        report.write(f"    {int(decade)}s: {avg:.2f}/10\n")
+    
+    # Key Findings
+    report.write("\n💡 KEY FINDINGS & RECOMMENDATIONS\n")
+    report.write("-" * 80 + "\n")
+    report.write(f"  1. Movies around {df.loc[df['rating'].idxmax(), 'release_year']:.0f} have highest quality\n")
+    report.write(f"  2. Genre '{max(genre_counts, key=genre_counts.get)}' is most represented\n")
+    report.write(f"  3. Average movie length of {df['runtime'].mean():.0f} min is optimal for distribution\n")
+    report.write(f"  4. {good/len(df)*100:.0f}% of movies meet 'Good' quality threshold (7.0+)\n")
+    report.write(f"  5. Multi-genre movies average {df[df['genre_count'] > 1]['rating'].mean():.2f}/10\n")
+    
+    report.write("\n" + "="*80 + "\n")
+    
+    return report.getvalue()
+
+
+def display_insights_tab(df):
+    """Display insights report in a dedicated tab"""
+    col1, col2 = st.columns([3, 1])
+    
+    with col1:
+        st.markdown("### 📋 Analytics Insights Report")
+        st.markdown("Generate a detailed report of the current dataset with key insights and statistics.")
+    
+    with col2:
+        if st.button("📥 Generate Report", help="Click to generate the insights report"):
+            st.session_state.report_generated = True
+    
+    if st.session_state.get('report_generated', False):
+        # Generate the report
+        report_text = generate_insights_report(df)
+        
+        # Display the report
+        st.markdown("---")
+        st.text(report_text)
+        
+        # Download button
+        st.markdown("---")
+        col1, col2, col3 = st.columns(3)
+        
+        with col2:
+            st.download_button(
+                label="📥 Download Report (TXT)",
+                data=report_text,
+                file_name=f"movie_insights_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt",
+                mime="text/plain",
+                help="Download the report as a text file"
+            )
+
+
 def main():
     """Main dashboard application"""
     
@@ -530,7 +718,7 @@ def main():
     st.markdown("---")
     
     # Visualizations
-    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(["📊 Overview", "📈 Trends", "🎭 Genres", "🏆 Top Movies", "⏱️ Runtime", "🔗 Relationships"])
+    tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(["📊 Overview", "📈 Trends", "🎭 Genres", "🏆 Top Movies", "⏱️ Runtime", "🔗 Relationships", "📋 Insights"])
     
     with tab1:
         col1, col2 = st.columns(2)
@@ -632,6 +820,9 @@ def main():
             filtered_df[['rating', 'popularity', 'vote_count', 'runtime', 'movie_age']].describe().T,
             use_container_width=True
         )
+    
+    with tab7:
+        display_insights_tab(filtered_df)
     
     # Footer
     st.markdown("---")
