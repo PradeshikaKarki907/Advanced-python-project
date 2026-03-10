@@ -1,0 +1,122 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+.venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE and Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+.project
+.pydevproject
+.settings/
+*.iml
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+.env.production.local
+
+# Streamlit
+.streamlit/
+.streamlit_cache/
+
+# Data Files (generated)
+../data/raw/*.csv
+../data/raw/*.json
+../data/processed/
+../visualizations/
+../database/
+
+# Logs
+logs/
+*.log
+pipeline.log
+../data/logs/
+
+# Cache
+.cache/
+*.cache
+.pytest_cache/
+.mypy_cache/
+
+# Temporary Files
+*.tmp
+*.temp
+*.bak
+*.backup
+*~
+.~*
+
+# OS-specific
+.DS_Store
+Thumbs.db
+.directory
+.spotlight-V100
+.Trashes
+
+# IDE Backups
+*.orig
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Compiled files
+*.pyc
+*.pyo
+*.pyd
+
+# Testing
+.coverage
+.tox/
+htmlcov/
+
+# Distribution / Packaging
+*.egg-info/
+dist/
+build/
+
+# md files
+*.md
+!README.md
+
