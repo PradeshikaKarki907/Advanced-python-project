@@ -1,10 +1,52 @@
 #!/usr/bin/env python
-"""Generate insights from the movie dataset"""
+"""
+Movie Analytics Insights Report Generator
+
+Automated report generation for comprehensive movie dataset analysis.
+Produces formatted text reports with key statistics, insights, and trends
+extracted from the processed movie database.
+
+Capabilities:
+    - Dataset overview and statistics
+    - Rating analysis and distributions
+    - Genre insights and metrics
+    - Runtime categorization and trends
+    - Year-based analysis and patterns
+    - Correlations and relationships
+    - Statistical summaries
+
+Report Sections:
+    1. Dataset Overview: Size, date range, features
+    2. Rating Insights: Averages, distributions, quartiles
+    3. Genre Analytics: Top genres, genre correlations
+    4. Runtime Analysis: Categorization, trends
+    5. Temporal Trends: Year-over-year analysis
+    6. Key Findings: Notable patterns and insights
+    7. Statistical Summary: Correlations and relationships
+
+Data Sources:
+    - Primary: ../data/processed/processed_movies.csv
+    - Features: 11 columns with 488 movie records
+
+Output:
+    - Console text report
+    - Formatted statistics and metrics
+    - Distribution analysis
+    - Trend insights
+
+Author: Data Analytics Team
+Version: 1.0.0
+Date: March 2026
+"""
 
 import pandas as pd
 import numpy as np
+from typing import Dict, List, Tuple
+from datetime import datetime
 
-# Load the processed data
+# ============================================================================
+# Configuration
+# ============================================================================
 df = pd.read_csv('../data/processed/processed_movies.csv')
 
 print("="*80)

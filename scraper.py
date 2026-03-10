@@ -1,21 +1,41 @@
 """
-Real Movie Data Web Scraper
-Scrapes movie data from public, ethical sources:
-  1. Wikipedia (freely available, no API key needed)
-  2. TMDB API (free tier, requires API key)
+Movie Data Web Scraper Module
+
+This module provides professional-grade web scraping functionality for movie data
+from multiple public sources. It implements automatic fallback mechanisms and 
+comprehensive error handling.
+
+Supported Data Sources:
+    - Wikipedia: Public, freely-available movie lists (no API key required)
+    - TMDB API: The Movie Database (free tier, requires API key)
+
+Features:
+    - Multi-source extraction with automatic fallback
+    - Comprehensive logging and error handling
+    - Rate limiting and respectful scraping practices
+    - Data validation and standardization
+    - CSV/JSON export capabilities
+
+Author: Data Engineering Team
+Version: 1.0.0
+Date: March 2026
 """
+
+import logging
+import json
+import time
+import os
+from typing import Dict, Optional
+from datetime import datetime
 
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
-import logging
-import json
-import time
-from datetime import datetime
-from typing import List, Dict, Optional
-import os
 
-# Configure logging
+# ============================================================================
+# Logger Configuration
+# ============================================================================
+
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'

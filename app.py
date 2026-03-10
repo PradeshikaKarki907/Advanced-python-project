@@ -1,19 +1,52 @@
 """
-Interactive Movie Analytics Dashboard
-Built with Streamlit for comprehensive data exploration
+Movie Analytics Dashboard
+
+Interactive web-based analytics dashboard for movie data exploration and analysis.
+Provides comprehensive data visualization, filtering, and reporting capabilities.
+
+Features:
+    - Interactive data filtering (year, genre, rating, era, runtime)
+    - Real-time visualizations (15+ charts)
+    - Key performance indicators (KPIs)
+    - Dynamic insights report generation
+    - Multi-source data loading (CSV/SQLite)
+    - Session state management
+    - Automatic data caching
+
+Components:
+    - 7 analysis tabs for different perspectives
+    - Sidebar filters for targeted exploration
+    - Dynamic report generation and download
+    - Statistical summaries and correlations
+
+Tech Stack:
+    - Streamlit: Web framework
+    - Pandas: Data manipulation
+    - Matplotlib/Seaborn: Visualization
+    - SQLite: Database queries
+
+Author: Data Analytics Team
+Version: 1.0.0
+Date: March 2026
 """
 
-import streamlit as st
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-import sqlite3
+import logging
+import json
 import os
+import sqlite3
 from datetime import datetime
 from io import StringIO
+from typing import Dict, Tuple, Optional
 
-# Page configuration
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import streamlit as st
+
+# ============================================================================
+# Configuration
+# ============================================================================
 st.set_page_config(
     page_title="Movie Analytics Dashboard",
     page_icon="🎬",
