@@ -270,16 +270,3 @@ The primary dataset (`extracted_data/real_movie_data.csv`) contains 3,500+ movie
 
 ---
 
-## Troubleshooting
-
-| Issue | Solution |
-|-------|---------|
-| No data on dashboard | Place a CSV in `extracted_data/` or run the scraper |
-| TMDB API errors | Verify API key/token in `extraction/scraper.py` |
-| Import errors | Ensure you run from the `Advanced-python-project/` directory |
-| Streamlit not found | Run `pip install -r requirements.txt` inside the venv |
-
----
-
-**Last Updated**: March 11, 2026
-**Project Status**: Production Ready
