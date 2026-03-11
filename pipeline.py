@@ -1,39 +1,4 @@
-"""
-Movie Data ETL Pipeline Orchestrator
-
-Master orchestrator for the complete Extract-Transform-Load (ETL) process.
-Coordinates all phases of the movie analytics pipeline from data acquisition
-through database loading and exploratory analysis.
-
-Pipeline Architecture:
-    Phase 1 - EXTRACTION: Collects data from Wikipedia and TMDB API
-    Phase 2 - TRANSFORMATION: Cleans, validates, and engineers features
-    Phase 3 - LOADING: Stores normalized data into SQLite database
-    Phase 4 - EDA: Generates exploratory analysis and visualizations
-
-Key Features:
-    - Modular pipeline design with independent ETL stages
-    - Automatic fallback mechanisms for data sources
-    - Comprehensive error handling and recovery
-    - Detailed logging at each pipeline stage
-    - Performance metrics and execution timing
-    - Data quality validation and reporting
-    - Normalized database schema with proper foreign keys
-
-Pipeline Configuration:
-    - Input sources: Wikipedia (primary), TMDB API (fallback)
-    - Output location: ../database/movies.db (SQLite)
-    - Log location: ../data/logs/pipeline.log
-    - Report location: ../data/reports/analysis_report.txt
-    - Visualizations: ../visualizations/*.png
-
-Execution Performance:
-    - Total pipeline time: 5-6 seconds for 488 movies
-    - Data volume: ~1.5 MB processed per run
-    - Database size: ~2-3 MB with indexes
-    - Memory usage: <500 MB typical
-"""
-
+import os
 import sys
 import logging
 import time
@@ -44,24 +9,23 @@ from typing import Optional, Dict
 # Local Imports
 # ============================================================================
 
-# Add src directory to path
-sys.path.append('../src')
-
-from extract import MovieDataExtractor
-from transform import MovieDataTransformer
-from load import MovieDatabaseLoader
+from extraction.extract import MovieDataExtractor
+from transformation.transform import MovieDataTransformer
+from loading.load import MovieDatabaseLoader
 
 # ============================================================================
 # Configuration
 # ============================================================================
 
+_log_handlers: list[logging.Handler] = [logging.StreamHandler()]
+_log_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logs')
+os.makedirs(_log_dir, exist_ok=True)
+_log_handlers.append(logging.FileHandler(os.path.join(_log_dir, 'pipeline.log')))
+
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler('../data/logs/pipeline.log'),
-        logging.StreamHandler()
-    ]
+    handlers=_log_handlers
 )
 logger = logging.getLogger(__name__)
 
@@ -157,8 +121,7 @@ class ETLPipeline:
         self.log_phase_start("PHASE 4: EDA")
         
         try:
-            # Import and run EDA
-            from eda import MovieEDA
+            from analysis.eda import MovieEDA
             
             eda = MovieEDA()
             eda.load_data()
