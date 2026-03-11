@@ -35,6 +35,7 @@ venv.bak/
 # IDE and Editor Files
 .vscode/
 .idea/
+pyrightconfig.json
 *.swp
 *.swo
 *~
