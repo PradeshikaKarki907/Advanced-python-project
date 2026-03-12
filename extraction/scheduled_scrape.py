@@ -1,5 +1,6 @@
 import argparse
 import logging
+import logging.handlers
 import os
 import subprocess
 import sys
@@ -7,21 +8,39 @@ from datetime import datetime
 from pathlib import Path
 
 # Ensure project root is on the path
-PROJECT_ROOT = Path(__file__).resolve().parent
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 os.chdir(PROJECT_ROOT)
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from scraper import MovieDataScraper  # noqa: E402
+# ---------------------------------------------------------------------------
+# Logging: daily rotating file (kept for 3 days) + console
+# Must be configured BEFORE importing scraper (which also calls basicConfig)
+# ---------------------------------------------------------------------------
+LOG_DIR = PROJECT_ROOT / "logs"
+LOG_DIR.mkdir(exist_ok=True)
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(message)s",
-    handlers=[
-        logging.FileHandler(PROJECT_ROOT / "extracted_data" / "scrape.log"),
-        logging.StreamHandler(),
-    ],
+_file_handler = logging.handlers.TimedRotatingFileHandler(
+    filename=LOG_DIR / "scrape.log",
+    when="midnight",
+    interval=1,
+    backupCount=3,
+    encoding="utf-8",
 )
+_file_handler.suffix = "%Y-%m-%d"  # e.g. scrape.log.2026-03-11
+_file_handler.setFormatter(logging.Formatter("%(asctime)s [%(levelname)s] %(message)s"))
+
+_console_handler = logging.StreamHandler()
+_console_handler.setFormatter(logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s"))
+
+# Configure root logger directly (basicConfig is a no-op if handlers exist)
+_root = logging.getLogger()
+_root.setLevel(logging.INFO)
+_root.addHandler(_file_handler)
+_root.addHandler(_console_handler)
+
 log = logging.getLogger("scheduled_scrape")
+
+from extraction.scraper import MovieDataScraper  # noqa: E402
 
 TASK_NAME = "MovieDataScraper_Daily"
 CSV_FILE = "real_movie_data.csv"

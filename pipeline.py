@@ -1,6 +1,7 @@
 import os
 import sys
 import logging
+import logging.handlers
 import time
 from datetime import datetime
 from typing import Optional, Dict
@@ -14,18 +15,25 @@ from transformation.transform import MovieDataTransformer
 from loading.load import MovieDatabaseLoader
 
 # ============================================================================
-# Configuration
+# Configuration – daily rotating log (3-day retention)
 # ============================================================================
 
-_log_handlers: list[logging.Handler] = [logging.StreamHandler()]
 _log_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logs')
 os.makedirs(_log_dir, exist_ok=True)
-_log_handlers.append(logging.FileHandler(os.path.join(_log_dir, 'pipeline.log')))
+
+_file_handler = logging.handlers.TimedRotatingFileHandler(
+    filename=os.path.join(_log_dir, 'pipeline.log'),
+    when='midnight',
+    interval=1,
+    backupCount=3,
+    encoding='utf-8',
+)
+_file_handler.suffix = '%Y-%m-%d'  # e.g. pipeline.log.2026-03-11
 
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=_log_handlers
+    handlers=[_file_handler, logging.StreamHandler()],
 )
 logger = logging.getLogger(__name__)
 
