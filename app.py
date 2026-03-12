@@ -14,7 +14,7 @@ st.set_page_config(
     page_title="Movie Analytics Dashboard",
     page_icon="🎬",
     layout="wide",
-    initial_sidebar_state="collapsed",
+    initial_sidebar_state="expanded"  
 )
 
 if "report_generated" not in st.session_state:
@@ -23,9 +23,9 @@ if "report_generated" not in st.session_state:
 inject_css()
 
 
-# ── Page: Dashboard ──────────────────────────────────────────────────────
+# ── Page: Analytics ────────────────────────────────────────────────────────────
 
-def _render_dashboard() -> None:
+def _render_analytics() -> None:
     with st.spinner("Loading data..."):
         df = load_data()
 
@@ -195,7 +195,7 @@ def main():
 
     page = st.sidebar.radio(
         "Navigation",
-        ["📊 Dashboard", "🎥 Browse Movies"],
+        ["🎥 Browse Movies", "📊 Analytics"],
         label_visibility="collapsed",
     )
     st.sidebar.markdown("---")
@@ -206,7 +206,7 @@ def main():
             st.sidebar.info(f"Scraped dataset: **{len(browse_df)} movies**")
         display_browse_movies(browse_df)
     else:
-        _render_dashboard()
+        _render_analytics()
 
 
 if __name__ == "__main__":

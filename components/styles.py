@@ -23,13 +23,32 @@ def inject_css():
             background: #0E1117;
         }
 
-        /* All text white; red on click */
+        /* All text white; red on hover */
         [data-testid="stAppViewContainer"] *,
         section[data-testid="stSidebar"] * {
             color: #FFFFFF !important;
         }
-        [data-testid="stAppViewContainer"] *:active,
-        section[data-testid="stSidebar"] *:active {
+        [data-testid="stAppViewContainer"] *:hover,
+        section[data-testid="stSidebar"] *:hover {
+            color: #E50914 !important;
+        }
+
+        /* Keep selectbox / multiselect / dropdown text visible */
+        [data-testid="stSelectbox"] [data-baseweb="select"] span,
+        [data-testid="stSelectbox"] [data-baseweb="select"] div,
+        [data-testid="stMultiSelect"] [data-baseweb="select"] span,
+        [data-testid="stMultiSelect"] [data-baseweb="select"] div {
+            color: #000000 !important;
+        }
+        /* Dropdown menu items */
+        [data-baseweb="popover"] li,
+        [data-baseweb="popover"] li span,
+        [data-baseweb="popover"] li div {
+            color: #000000 !important;
+        }
+        [data-baseweb="popover"] li:hover,
+        [data-baseweb="popover"] li:hover span,
+        [data-baseweb="popover"] li:hover div {
             color: #E50914 !important;
         }
 
@@ -42,7 +61,7 @@ def inject_css():
         section[data-testid="stSidebar"] [data-testid="stSidebarHeader"] {
             background: transparent;
         }
-        /* Sidebar radio buttons → pill style */
+        /* Sidebar radio buttons → pill style (hide bullet) */
         section[data-testid="stSidebar"] [role="radiogroup"] label {
             background: #21262D;
             border: 1px solid #30363D;
@@ -51,6 +70,13 @@ def inject_css():
             margin-bottom: 0.35rem;
             transition: all 0.2s;
             cursor: pointer;
+        }
+        section[data-testid="stSidebar"] [role="radiogroup"] label div[data-testid="stMarkdownContainer"] {
+            display: flex;
+            align-items: center;
+        }
+        section[data-testid="stSidebar"] [role="radiogroup"] input[type="radio"] {
+            display: none !important;
         }
         section[data-testid="stSidebar"] [role="radiogroup"] label:hover {
             border-color: #E50914;
@@ -186,6 +212,20 @@ def inject_css():
             height: 310px;
             object-fit: cover;
         }
+
+        /* Clickable card links */
+        a.movie-card-link,
+        a.movie-card-link:hover,
+        a.movie-card-link:visited,
+        a.movie-card-link:active {
+            text-decoration: none !important;
+            color: inherit !important;
+            display: block;
+        }
+        a.movie-card-link .movie-card {
+            cursor: pointer;
+        }
+        a.movie-card-link img { border: none; }
         .movie-card-body {
             padding: 0.9rem 1rem;
             flex: 1;
@@ -237,6 +277,15 @@ def inject_css():
         ::-webkit-scrollbar-track { background: #0E1117; }
         ::-webkit-scrollbar-thumb { background: #30363D; border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: #484F58; }
+
+        /* ── Text inputs: black text on white background ──── */
+        input[type="text"],
+        textarea,
+        [data-testid="stTextInput"] input,
+        [data-testid="stSelectbox"] input,
+        [data-testid="stMultiSelect"] input {
+            color: #000000 !important;
+        }
         </style>
         """,
         unsafe_allow_html=True,
