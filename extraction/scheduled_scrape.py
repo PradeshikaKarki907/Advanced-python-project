@@ -93,7 +93,7 @@ def install_task():
         "/TN", TASK_NAME,
         "/TR", f'"{python_exe}" "{script_path}"',
         "/SC", "DAILY",
-        "/ST", "10:00",
+        "/ST", "12:00",
         "/F",  # force overwrite if exists
     ]
 
