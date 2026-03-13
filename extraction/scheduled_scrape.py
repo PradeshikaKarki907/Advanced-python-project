@@ -84,7 +84,7 @@ def run_scrape():
 
 
 def install_task():
-    """Register a Windows Task Scheduler job to run this script daily at 03:00."""
+    """Register a Windows Task Scheduler job to run this script daily at 09:00."""
     python_exe = sys.executable
     script_path = str(Path(__file__).resolve())
 
@@ -93,7 +93,7 @@ def install_task():
         "/TN", TASK_NAME,
         "/TR", f'"{python_exe}" "{script_path}"',
         "/SC", "DAILY",
-        "/ST", "03:00",
+        "/ST", "09:00",
         "/F",  # force overwrite if exists
     ]
 
@@ -102,7 +102,7 @@ def install_task():
 
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode == 0:
-        log.info(f"Task '{TASK_NAME}' created successfully (daily at 03:00)")
+        log.info(f"Task '{TASK_NAME}' created successfully (daily at 09:00)")
         log.info("  View it:   schtasks /Query /TN MovieDataScraper_Daily")
         log.info("  Run now:   schtasks /Run   /TN MovieDataScraper_Daily")
         log.info("  Delete it: python scheduled_scrape.py --uninstall")
