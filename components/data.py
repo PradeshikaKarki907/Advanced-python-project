@@ -78,9 +78,6 @@ def _add_derived_columns(df: pd.DataFrame) -> None:
             lambda g: len([x for x in g.split("|") if x])
         )
 
-    if "popularity" in df.columns and "popularity_bucket" not in df.columns:
-        df["popularity_bucket"] = df["popularity"].map(_popularity_bucket)
-
     if "weighted_score" not in df.columns:
         r = df.get("rating", pd.Series(dtype=float))
         v = df.get("vote_count", pd.Series(dtype=float))
@@ -108,10 +105,3 @@ def _rating_category(r: float) -> str:
     if r >= 6: return "Good"
     if r >= 4: return "Average"
     return "Poor"
-
-
-def _popularity_bucket(p: float) -> str:
-    if p >= 100: return "Very High"
-    if p >= 50: return "High"
-    if p >= 20: return "Medium"
-    return "Low"

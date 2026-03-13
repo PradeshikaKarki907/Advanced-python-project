@@ -110,15 +110,6 @@ class MovieDataTransformer:
         df['rating_category'] = df['rating'].apply(categorize_rating)
         logger.info("Created 'rating_category' feature")
         
-        # Popularity buckets
-        df['popularity_bucket'] = pd.cut(
-            df['popularity'],
-            bins=[0, 20, 50, 80, 100],
-            labels=['Low', 'Medium', 'High', 'Very High'],
-            include_lowest=True
-        )
-        logger.info("Created 'popularity_bucket' feature")
-        
         # Runtime category
         def categorize_runtime(runtime):
             if runtime < 90:

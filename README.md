@@ -66,7 +66,7 @@ python -c "from extraction.scraper import MovieDataScraper; s = MovieDataScraper
 ## Data Pipeline
 
 1. **Extract** — TMDB API year-by-year queries (1990–present), Wikipedia fallback
-2. **Transform** — Clean, deduplicate, engineer 6 features (movie_age, rating_category, popularity_bucket, era, genre_count, weighted_score)
+2. **Transform** — Clean, deduplicate, engineer 5 features (movie_age, rating_category, era, genre_count, weighted_score)
 3. **Load** — Normalized SQLite schema (movies, genres, movie_genres, ratings_summary)
 4. **Analyze** — Statistical summaries, correlation analysis, IQR outlier detection
 

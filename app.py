@@ -62,11 +62,7 @@ def _render_analytics() -> None:
         with c2:
             st.plotly_chart(charts.vote_count_distribution(filtered), width="stretch")
 
-        c3, c4 = st.columns(2)
-        with c3:
-            st.plotly_chart(charts.era_distribution(filtered), width="stretch")
-        with c4:
-            st.plotly_chart(charts.popularity_bucket_chart(filtered), width="stretch")
+        st.plotly_chart(charts.era_distribution(filtered), width="stretch")
 
     # ── Trends ───────────────────────────────────────────────────────
     with tab_trends:
@@ -86,11 +82,7 @@ def _render_analytics() -> None:
         with c2:
             st.plotly_chart(charts.genres_by_rating(filtered), width="stretch")
 
-        c3, c4 = st.columns(2)
-        with c3:
-            st.plotly_chart(charts.rating_category_chart(filtered), width="stretch")
-        with c4:
-            st.plotly_chart(charts.popularity_bucket_bar(filtered), width="stretch")
+        st.plotly_chart(charts.rating_category_chart(filtered), width="stretch")
 
     # ── Top Movies ───────────────────────────────────────────────────
     with tab_top:

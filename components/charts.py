@@ -62,20 +62,6 @@ def era_distribution(df: pd.DataFrame) -> go.Figure:
     return _layout(fig, "Movies by Era")
 
 
-def popularity_bucket_chart(df: pd.DataFrame) -> go.Figure:
-    order = ["Very High", "High", "Medium", "Low"]
-    counts = df["popularity_bucket"].value_counts().reindex(order, fill_value=0)
-    colors = [ACCENT, "#58A6FF", "#D29922", "#8B949E"]
-    fig = go.Figure(go.Bar(
-        y=counts.index, x=counts.values, orientation="h",
-        marker_color=colors,
-        text=[f"{v:,}" for v in counts.values],
-        textposition="outside",
-    ))
-    fig.update_layout(xaxis_title="Movies", yaxis_title="")
-    return _layout(fig, "Movies by Popularity Bucket")
-
-
 # ── Trends tab ───────────────────────────────────────────────────────────
 
 def movies_per_year(df: pd.DataFrame) -> go.Figure:
@@ -153,16 +139,6 @@ def rating_category_chart(df: pd.DataFrame) -> go.Figure:
         labels={"x": "Category", "y": "Movies"},
     )
     return _layout(fig, "Rating Category Distribution")
-
-
-def popularity_bucket_bar(df: pd.DataFrame) -> go.Figure:
-    counts = df["popularity_bucket"].value_counts()
-    fig = px.bar(
-        x=counts.index, y=counts.values,
-        color_discrete_sequence=[ACCENT],
-        labels={"x": "Bucket", "y": "Movies"},
-    )
-    return _layout(fig, "Popularity Bucket Distribution")
 
 
 # ── Relationships tab ────────────────────────────────────────────────────

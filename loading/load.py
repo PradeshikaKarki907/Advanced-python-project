@@ -56,7 +56,6 @@ class MovieDatabaseLoader:
                     overview TEXT,
                     movie_age INTEGER,
                     rating_category TEXT,
-                    popularity_bucket TEXT,
                     runtime_category TEXT,
                     era TEXT,
                     genre_count INTEGER,
@@ -152,7 +151,7 @@ class MovieDatabaseLoader:
             for _, row in df.iterrows():
                 cursor.execute("""
                     INSERT OR REPLACE INTO movies VALUES (
-                        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+                        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
                     )
                 """, (
                     row['movie_id'],
@@ -165,7 +164,6 @@ class MovieDatabaseLoader:
                     row['overview'],
                     row['movie_age'],
                     row['rating_category'],
-                    str(row['popularity_bucket']),
                     row['runtime_category'],
                     row['era'],
                     row['genre_count'],
